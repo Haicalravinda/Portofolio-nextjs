@@ -1,6 +1,5 @@
 'use client';
 import Link from 'next/link';
-import { Variants } from "framer-motion";
 import { useState, useEffect } from 'react';
 import { FaHome, FaBriefcase, FaLaptopCode, FaTools, FaCertificate, FaGraduationCap } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -40,14 +39,6 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
- const logoVariants = {
-  initial: { rotate: 0 },
-  hover: { 
-    rotate: 360,
-    transition: { duration: 0.6, ease: "easeInOut" } // ✅ fix
-  }
-};
-
   return (
     <motion.nav 
       initial={{ y: -100, opacity: 0 }}
@@ -68,9 +59,8 @@ export default function Navbar() {
             className="flex items-center gap-3 group"
           >
             <motion.div 
-              variants={logoVariants}
-              initial="initial"
-              whileHover="hover"
+              whileHover={{ rotate: 360 }}
+              transition={{ duration: 0.6, ease: "easeInOut" }}
               className="relative w-12 h-12 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-2xl flex items-center justify-center text-white font-bold text-xl shadow-lg group-hover:shadow-2xl transition-all duration-300"
             >
               <span className="relative z-10">H</span>
