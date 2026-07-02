@@ -7,35 +7,49 @@ import ProjectsSection from './components/ProjectsSection';
 import { SkillsSection, CertsSection } from './components/SkillsCerts';
 import ScrollProgress from './components/ScrollProgress';
 import MouseGlow from './components/MouseGlow';
+import Floating3DShapes from './components/Floating3DShapes';
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#f8faff] relative overflow-hidden selection:bg-blue-100 selection:text-blue-900">
+    <div className="min-h-screen bg-transparent relative overflow-hidden selection:bg-blue-100 selection:text-blue-900">
       {/* Scroll indicator & Ambient follow light */}
       <ScrollProgress />
       <MouseGlow />
+
+      {/* Floating 3D geometric shapes scattered across the page */}
+      <Floating3DShapes />
 
       <HeroSection />
       
       <div className="section-divider" />
       
-      <EducationSection />
+      <div className="section-bg-blue">
+        <EducationSection />
+      </div>
       
       <div className="section-divider" />
       
-      <ExperienceSection />
+      <div className="section-bg-violet">
+        <ExperienceSection />
+      </div>
       
       <div className="section-divider" />
       
-      <ProjectsSection />
+      <div className="section-bg-cyan">
+        <ProjectsSection />
+      </div>
       
       <div className="section-divider" />
       
-      <SkillsSection />
+      <div className="section-bg-emerald">
+        <SkillsSection />
+      </div>
       
       <div className="section-divider" />
       
-      <CertsSection />
+      <div className="section-bg-amber">
+        <CertsSection />
+      </div>
 
       {/* Footer */}
       <footer className="relative bg-gradient-to-br from-slate-900 via-blue-950 to-violet-950 text-white py-16 px-4 overflow-hidden mt-12">

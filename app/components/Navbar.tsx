@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useState, useEffect, useCallback } from 'react';
-import { FaHome, FaBriefcase, FaLaptopCode, FaTools, FaCertificate, FaGraduationCap, FaEnvelope } from 'react-icons/fa';
+import { FaHome, FaBriefcase, FaLaptopCode, FaTools, FaCertificate, FaGraduationCap, FaEnvelope, FaSun, FaMoon } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const navItems = [
@@ -17,6 +17,31 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+
+  useEffect(() => {
+    const saved = localStorage.getItem('theme') as 'light' | 'dark' | null;
+    const system = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (saved === 'dark' || (!saved && system)) {
+      setTheme('dark');
+      document.documentElement.classList.add('dark');
+    } else {
+      setTheme('light');
+      document.documentElement.classList.remove('dark');
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    if (theme === 'light') {
+      setTheme('dark');
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      setTheme('light');
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  };
 
   const handleScroll = useCallback(() => {
     setScrolled(window.scrollY > 20);
@@ -52,7 +77,7 @@ export default function Navbar() {
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-violet-600 flex items-center justify-center shadow-md shadow-blue-500/20 group-hover:shadow-blue-500/30 transition-shadow">
               <span className="text-white font-black text-sm">HR</span>
             </div>
-            <span className="hidden sm:block text-lg font-bold text-slate-800">
+            <span className="hidden sm:block text-lg font-bold text-slate-800 dark:text-slate-100">
               Haical<span className="text-blue-500">.</span>dev
             </span>
           </Link>
@@ -67,13 +92,13 @@ export default function Navbar() {
                   key={item.name}
                   href={item.href}
                   className={`relative flex items-center gap-1.5 px-3.5 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                    isActive ? 'text-blue-600' : 'text-slate-500 hover:text-slate-800'
+                    isActive ? 'text-blue-600 dark:text-blue-400' : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200'
                   }`}
                 >
                   {isActive && (
                     <motion.div
                       layoutId="navPill"
-                      className="absolute inset-0 bg-blue-50 border border-blue-100 rounded-lg"
+                      className="absolute inset-0 bg-blue-50 border border-blue-100 dark:bg-blue-950/40 dark:border-blue-900/50 rounded-lg"
                       transition={{ type: "spring", stiffness: 400, damping: 30 }}
                     />
                   )}
@@ -84,7 +109,14 @@ export default function Navbar() {
             })}
           </div>
 
-          <div className="hidden lg:block">
+          <div className="hidden lg:flex items-center gap-4">
+            <button
+              onClick={toggleTheme}
+              className="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-slate-900 dark:hover:bg-slate-800 border border-slate-100 dark:border-slate-800 text-slate-600 dark:text-slate-300 transition-all hover:scale-105"
+              aria-label="Toggle theme"
+            >
+              {theme === 'light' ? <FaMoon size={15} /> : <FaSun size={15} />}
+            </button>
             <a
               href="mailto:haikalrafindaraysa@gmail.com"
               className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-blue-500 to-violet-600 text-white text-sm rounded-xl font-semibold shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-200 hover:-translate-y-0.5"
@@ -94,18 +126,27 @@ export default function Navbar() {
             </a>
           </div>
 
-          {/* Mobile Button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden w-10 h-10 flex items-center justify-center rounded-lg bg-slate-100 hover:bg-slate-200 transition-colors"
-            aria-label="Toggle menu"
-          >
-            <div className="flex flex-col gap-1.5 w-5">
-              <span className={`block h-0.5 w-full bg-slate-600 rounded-full transition-all duration-200 ${isOpen ? 'rotate-45 translate-y-[4px]' : ''}`} />
-              <span className={`block h-0.5 w-full bg-slate-600 rounded-full transition-all duration-200 ${isOpen ? 'opacity-0' : ''}`} />
-              <span className={`block h-0.5 w-full bg-slate-600 rounded-full transition-all duration-200 ${isOpen ? '-rotate-45 -translate-y-[4px]' : ''}`} />
-            </div>
-          </button>
+          {/* Mobile Theme Toggle & Menu Button */}
+          <div className="flex items-center gap-2 lg:hidden">
+            <button
+              onClick={toggleTheme}
+              className="w-10 h-10 flex items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition-colors"
+              aria-label="Toggle theme"
+            >
+              {theme === 'light' ? <FaMoon size={15} /> : <FaSun size={15} />}
+            </button>
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="w-10 h-10 flex items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition-colors"
+              aria-label="Toggle menu"
+            >
+              <div className="flex flex-col gap-1.5 w-5">
+                <span className={`block h-0.5 w-full bg-slate-600 dark:bg-slate-300 rounded-full transition-all duration-200 ${isOpen ? 'rotate-45 translate-y-[4px]' : ''}`} />
+                <span className={`block h-0.5 w-full bg-slate-600 dark:bg-slate-300 rounded-full transition-all duration-200 ${isOpen ? 'opacity-0' : ''}`} />
+                <span className={`block h-0.5 w-full bg-slate-600 dark:bg-slate-300 rounded-full transition-all duration-200 ${isOpen ? '-rotate-45 -translate-y-[4px]' : ''}`} />
+              </div>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -130,8 +171,8 @@ export default function Navbar() {
                     onClick={() => setIsOpen(false)}
                     className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 font-medium ${
                       isActive
-                        ? 'bg-blue-50 text-blue-600 border border-blue-100'
-                        : 'text-slate-600 hover:bg-slate-50'
+                        ? 'bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 border border-blue-100 dark:border-blue-900/50'
+                        : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50'
                     }`}
                   >
                     <Icon size={16} />

@@ -17,15 +17,15 @@ export default function ProjectsSection() {
   return (
     <section id="projects" className="py-20 px-4 md:px-8 max-w-6xl mx-auto">
       <div className="text-center mb-12">
-        <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-cyan-50 border border-cyan-100 text-cyan-600 mb-3">
-          <FaLaptopCode size={18} />
+        <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 text-white mb-4 shadow-lg shadow-cyan-500/20">
+          <FaLaptopCode size={20} />
         </div>
-        <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Proyek Pilihan</h2>
-        <p className="text-slate-500 text-sm md:text-base mt-2">Aplikasi web dan mobile yang berhasil dirancang secara komprehensif</p>
+        <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">Proyek Pilihan</h2>
+        <p className="text-slate-500 dark:text-slate-400 text-sm md:text-base mt-2">Aplikasi web dan mobile yang berhasil dirancang secara komprehensif</p>
       </div>
 
       {/* Toolbar */}
-      <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-10 pb-4 border-b border-slate-100">
+      <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-10 pb-4 border-b border-slate-100 dark:border-slate-800">
         <div className="flex gap-2">
           {[
             { id: 'all', l: 'Semua Proyek' },
@@ -37,8 +37,8 @@ export default function ProjectsSection() {
               onClick={() => setFilter(t.id)}
               className={`px-4 py-2 rounded-xl text-xs md:text-sm font-bold border transition-all duration-300 ${
                 filter === t.id
-                  ? 'bg-blue-50 border-blue-200 text-blue-600'
-                  : 'bg-white border-slate-100 text-slate-400 hover:text-slate-700 hover:bg-slate-50'
+                  ? 'bg-gradient-to-r from-cyan-50 to-blue-50 dark:from-cyan-950/40 dark:to-blue-950/40 border-cyan-200 dark:border-cyan-800 text-cyan-700 dark:text-cyan-400 shadow-sm shadow-cyan-500/10'
+                  : 'bg-white dark:bg-slate-900 border-slate-100 dark:border-slate-800 text-slate-400 dark:text-slate-500 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-cyan-50/50 dark:hover:bg-cyan-950/20 hover:border-cyan-100 dark:hover:border-cyan-900/50'
               }`}
             >
               {t.l}
@@ -51,9 +51,9 @@ export default function ProjectsSection() {
             placeholder="Cari proyek..."
             value={q}
             onChange={e => setQ(e.target.value)}
-            className="w-full bg-white border border-slate-200 rounded-xl px-10 py-2.5 text-xs md:text-sm text-slate-700 placeholder-slate-300 focus:outline-none focus:border-blue-400 transition-colors"
+            className="w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl px-10 py-2.5 text-xs md:text-sm text-slate-700 dark:text-slate-200 placeholder-slate-300 dark:placeholder-slate-500 focus:outline-none focus:border-blue-400 dark:focus:border-blue-500 transition-colors"
           />
-          <FaSearch size={12} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-300" />
+          <FaSearch size={12} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-300 dark:text-slate-600" />
           {q && (
             <button onClick={() => setQ('')} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600">
               <FaTimes size={12} />
@@ -74,7 +74,7 @@ export default function ProjectsSection() {
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.25 }}
                 key={p.name}
-                className="card p-6 flex flex-col justify-between h-full group card-shine hover:border-slate-200 transition-all duration-300"
+                className="card card-cyan p-6 flex flex-col justify-between h-full group hover:border-cyan-200 transition-all duration-300"
               >
                 <div>
                   <div className="flex justify-between items-start mb-5">
@@ -82,28 +82,28 @@ export default function ProjectsSection() {
                       <Icon size={20} />
                     </div>
                     {p.featured && (
-                      <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 bg-amber-50 border border-amber-200 text-amber-600 rounded-md">
+                      <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 text-amber-600 dark:text-amber-400 rounded-md">
                         Unggulan
                       </span>
                     )}
                   </div>
 
-                  <h3 className="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 tracking-tight">
+                  <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-2 tracking-tight">
                     {p.name}
                   </h3>
                   
-                  <span className="inline-block text-xs font-semibold text-blue-500 bg-blue-50 border border-blue-100 px-2.5 py-1 rounded-lg mb-4">
+                  <span className="inline-block text-xs font-semibold text-blue-500 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 border border-blue-100 dark:border-blue-900/50 px-2.5 py-1 rounded-lg mb-4">
                     {p.tech}
                   </span>
 
-                  <p className="text-slate-600 text-sm leading-relaxed mb-6">
+                  <p className="text-slate-600 dark:text-slate-350 text-sm leading-relaxed mb-6">
                     {p.desc}
                   </p>
                 </div>
 
-                <div className="flex flex-wrap gap-1.5 pt-4 border-t border-slate-100 mt-auto">
+                <div className="flex flex-wrap gap-1.5 pt-4 border-t border-slate-100 dark:border-slate-800 mt-auto">
                   {p.tags.map((t, j) => (
-                    <span key={j} className="text-[10px] px-2.5 py-1 rounded-lg bg-slate-50 text-slate-400 border border-slate-100 font-semibold">
+                    <span key={j} className="text-[10px] px-2.5 py-1 rounded-lg bg-cyan-50/60 dark:bg-cyan-950/40 text-cyan-600 dark:text-cyan-300 border border-cyan-100 dark:border-cyan-900/50 font-semibold">
                       {t}
                     </span>
                   ))}
