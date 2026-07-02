@@ -9,7 +9,7 @@ export function SkillsSection() {
   const groups = [
     { title: "Bahasa Pemrograman", items: profileData.skills.languages, icon: FaCode, color: "from-blue-500 to-cyan-500" },
     { title: "Framework & Library", items: profileData.skills.frameworks, icon: FaReact, color: "from-violet-500 to-purple-500" },
-    { title: "Perkakas & Database", items: profileData.skills.tools, icon: FaDatabase, color: "from-emerald-500 to-teal-500" }
+    { title: "Tools & Database", items: profileData.skills.tools, icon: FaDatabase, color: "from-emerald-500 to-teal-500" }
   ];
   return (
     <section id="skills" className="py-20 px-4 md:px-8 max-w-6xl mx-auto">
